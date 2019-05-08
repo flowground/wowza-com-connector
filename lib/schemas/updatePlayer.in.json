@@ -1,0 +1,105 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "player": {
+                    "properties": {
+                        "countdown": {
+                            "description": "A clock that appears in the player before the event and counts down to the start of the stream. Specify <strong>true</strong> to display the countdown clock. The default is <strong>false</strong>.",
+                            "example": true,
+                            "type": "boolean"
+                        },
+                        "countdown_at": {
+                            "description": "The date and time that the event starts, used by the countdown clock. Enter <strong>YYYY-MM-DD HH:MM:SS</strong> where <strong>HH</strong> is a 24-hour clock in UTC.",
+                            "example": "2017-11-16T20:00:00.000Z",
+                            "format": "date-time",
+                            "type": "string"
+                        },
+                        "hosted_page": {
+                            "description": "A web page hosted by Wowza Streaming Cloud that includes a player for the live stream. The default, <strong>true</strong>, creates a hosted page. Specify <strong>false</strong> to not create a hosted web page.",
+                            "example": true,
+                            "type": "boolean"
+                        },
+                        "hosted_page_description": {
+                            "description": "A description that appears on the hosted page below the player. Can't include custom HTML, JavaScript, or other tags.",
+                            "example": "My Hosted Page Description",
+                            "type": "string"
+                        },
+                        "hosted_page_logo_image": {
+                            "description": "A Base64-encoded string representation of a GIF, JPEG, or PNG logo file that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.",
+                            "example": "[Base64-encoded string representation of an image]",
+                            "type": "string"
+                        },
+                        "hosted_page_sharing_icons": {
+                            "description": "Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, <strong>true</strong>, includes sharing icons on the hosted page. Specify <strong>false</strong> to omit sharing icons.",
+                            "example": true,
+                            "type": "boolean"
+                        },
+                        "hosted_page_title": {
+                            "description": "A title for the page that appears above the player. Can't include custom HTML, JavaScript, or other tags.",
+                            "example": "My Hosted Page",
+                            "type": "string"
+                        },
+                        "logo_image": {
+                            "description": "A Base64-encoded string representation of a GIF, JPEG, or PNG logo file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.",
+                            "example": "[Base64-encoded string representation of an image]",
+                            "type": "string"
+                        },
+                        "logo_position": {
+                            "description": "The corner of the player in which you want the player logo to appear. The default is <strong>top-left</strong>.",
+                            "example": "top-right",
+                            "type": "string"
+                        },
+                        "remove_hosted_page_logo_image": {
+                            "description": "If <strong>true</strong>, removes the logo file from the output. The default is <strong>false</strong>.",
+                            "example": true,
+                            "type": "boolean"
+                        },
+                        "remove_logo_image": {
+                            "description": "If <strong>true</strong>, removes the logo file from the output. The default is <strong>false</strong>.",
+                            "example": true,
+                            "type": "boolean"
+                        },
+                        "remove_video_poster_image": {
+                            "description": "If <strong>true</strong>, removes the poster image from the output. The default is <strong>false</strong>.",
+                            "example": true,
+                            "type": "boolean"
+                        },
+                        "responsive": {
+                            "description": "A player whose size adjusts according to the device on which it's being viewed. If <strong>true</strong>, creates a responsive player. If <strong>false</strong>, specify a <strong>width</strong>.",
+                            "example": false,
+                            "type": "boolean"
+                        },
+                        "type": {
+                            "description": "The player you want to use. Valid values are <strong>original_html5</strong>, which provides HTML5 playback and falls back to Flash on older browsers, and <strong>wowza_player</strong>, which provides HTML5 playback over Apple HLS. <strong>wowza_player</strong> requires that <em>target_delivery_protocol</em> be <strong>hls-https</strong> and <em>closed_caption_type</em> be <strong>none</strong>. The default is <strong>original_html5</strong>.",
+                            "example": "wowza_player",
+                            "type": "string"
+                        },
+                        "video_poster_image": {
+                            "description": "A Base64-encoded string representation of a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.",
+                            "example": "[Base64-encoded string representation of an image]",
+                            "type": "string"
+                        },
+                        "width": {
+                            "description": "The width, in pixels, of a fixed-size player. The default is <strong>640</strong>.",
+                            "example": 640,
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    },
+                    "title": "player",
+                    "type": "object"
+                }
+            },
+            "required": [
+                "player"
+            ],
+            "type": "object"
+        }
+    }
+}

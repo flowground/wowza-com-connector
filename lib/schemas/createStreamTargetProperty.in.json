@@ -1,0 +1,62 @@
+{
+    "type": "object",
+    "properties": {
+        "stream_target_id": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "property": {
+                    "properties": {
+                        "key": {
+                            "description": "<strong>chunkSize</strong> defines the duration of the time-based audio and video chunks that Wowza Streaming Cloud delivers to the target. <strong>playSSL</strong> determines whether Wowza Streaming Cloud sends the stream from the target to the player by using SSL (HTTPS). <strong>relativePlaylists</strong> allows the viewer to watch the stream over HTTP and HTTPS, whichever protocol their browser calls. <strong>sendSSL</strong> determines whether Wowza Streaming Cloud sends the stream from the transcoder to the target by using SSL (HTTPS).",
+                            "enum": [
+                                "chunkSize",
+                                "playSSL",
+                                "relativePlaylists",
+                                "sendSSL"
+                            ],
+                            "example": "chunkSize",
+                            "type": "string"
+                        },
+                        "section": {
+                            "description": "The section of the stream target configuration table that contains the property. For <strong>chunkSize</strong> and <strong>sendSSL</strong>, use <strong>hls</strong>. For <strong>playSSL</strong> and <strong>relativePlaylists</strong>, use <strong>playlist</strong>.",
+                            "enum": [
+                                "hls",
+                                "playlist"
+                            ],
+                            "example": "hls",
+                            "type": "string"
+                        },
+                        "value": {
+                            "description": "For <strong>chunkSize</strong> use <strong>2</strong>, <strong>4</strong>, <strong>6</strong>, <strong>8</strong>, or <strong>10</strong>. For <strong>playSSL</strong>, <strong>relativePlaylists</strong>, and <strong>sendSSL</strong> use <strong>true</strong> or <strong>false</strong>.",
+                            "enum": [
+                                "2",
+                                "4",
+                                "6",
+                                "8",
+                                "10",
+                                "true",
+                                "false"
+                            ],
+                            "example": "6",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "section",
+                        "key",
+                        "value"
+                    ],
+                    "title": "property",
+                    "type": "object"
+                }
+            },
+            "required": [
+                "property"
+            ],
+            "type": "object"
+        }
+    }
+}

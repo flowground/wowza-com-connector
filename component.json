@@ -1,0 +1,1812 @@
+{
+    "title": "Wowza Streaming Cloud REST API Reference Documentation",
+    "description": "\n# About the REST API\n\nThe Wowza Streaming Cloud<sup>TM</sup> REST API (application programming interface) offers complete programmatic control over live streams, transcoders, stream sources, and stream targets. Anything you can do in the Wowza Streaming Cloud UI can also be achieved by making HTTP-based requests to cloud-based servers through the REST API.\n\nThe Wowza Streaming Cloud REST API features *cross-origin resource sharing*, or CORS.\nCORS is a [W3C specification](https://www.w3.org/TR/cors/) that provides headers in HTTP requests to enable a web server to safely make a network request to another domain.\n\nIn order to protect shared resources, the Wowza Streaming Cloud REST API is subject to limits. For details, see [Wowza Streaming Cloud REST API limits](https://www.wowza.com/docs/wowza-streaming-cloud-rest-api-limits).\n# About this documentation\nThis reference documentation is based on the open-source [Swagger framework](http://swagger.io/specification/).\nIt allows you to view the operations, parameters, and request and reponse schemas for every resource. Request samples are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON.\n\nFor more information and examples on using the Wowza Streaming Cloud REST API, see our [library of Wowza Streaming Cloud REST API technical articles](https://www.wowza.com/docs/wowza-streaming-cloud-rest-api).\n\n# Query requirements\nThe Wowza Streaming Cloud REST API uses HTTP requests to retrieve data from cloud-based servers. Requests must contain proper JSON, two authentication keys, and the correct version number in the base path.\n\n## JSON\nThe Wowza Streaming Cloud REST API uses the [JSON API specification](http://jsonapi.org/format/) to request and return data. This means requests must include the header `Content-Type: application/json` and must include a single resource object in JSON format as primary data.\n\nResponses include HTTP status codes that indicate whether the query was successful. If there was an error, a description explains the problem so that you can fix it and try again.\n\n## Authentication\nRequests to the Wowza Streaming Cloud REST API must be authenticated with two keys: an API key and an access key. Each key is a 64-character alphanumeric string that you can find on the **API Access** page in Wowza Streaming Cloud.\n\nUse the `wsc-api-key` and `wsc-access-key` headers to authenticate requests, like this (in cURL):\n\n```bash\ncurl -H 'wsc-api-key: [64-character-api-key-goes-here]' -H 'wsc-access-key: [64-character-access-key-goes-here]'\n```\n\n<!-- ReDoc-Inject: <security-definitions> -->\n\n## Version\nThe Wowza Streaming Cloud API is currently at version 1.0.0. Use `v1` in your base path in every request, like this path to the live_streams endpoint:\n```\nhttps://api.cloud.wowza.com/api/v1/live_streams\n```\n## Example query\nHere is a complete example POST request, in cURL, with proper JSON syntax, headers, authentication, and version information:\n```bash\ncurl -H 'wsc-api-key: [64-character-api-key-goes-here]' -H 'wsc-access-key: [64-character-access-key-goes-here]'\n  -H 'Content-Type: application/json' -X POST -d '{\n    \"live_stream\": {\n      \"name\": \"My live Stream\",\n      \"...\": \"...\"\n    }\n  }' https://api.cloud.wowza.com/api/v1/live_streams\n```\n",
+    "docsUrl": "https://www.wowza.com/docs/how-to-broadcast-a-live-stream-by-using-the-wowza-streaming-cloud-rest-api",
+    "url": "https://api.apis.guru/v2/specs/wowza.com/1/swagger.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://api-sandbox.cloud.wowza.com/api/v1",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "wsc-access-key": {
+                "label": "wsc-access-key (wsc-access-key)",
+                "viewClass": "TextFieldView",
+                "note": "A valid 64-digit, alphanumeric API access key."
+            },
+            "wsc-api-key": {
+                "label": "wsc-api-key (wsc-api-key)",
+                "viewClass": "TextFieldView",
+                "note": "Your account's 64-digit, alphanumeric API key. "
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "specs": {
+            "main": "./lib/actions/specs.js",
+            "title": "Fetch Swagger information",
+            "description": "This operation shows the details of the Swagger specification.\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/specs.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "listLiveStreams": {
+            "main": "./lib/actions/listLiveStreams.js",
+            "title": "Fetch all live streams",
+            "description": "This operation shows the details of all of your live streams.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/listLiveStreams.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "createLiveStream": {
+            "main": "./lib/actions/createLiveStream.js",
+            "title": "Create a live stream",
+            "description": "This operation creates a live stream.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/createLiveStream.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "deleteLiveStream": {
+            "main": "./lib/actions/deleteLiveStream.js",
+            "title": "Delete a live stream",
+            "description": "This operation deletes a live stream, including all assigned outputs and targets.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/deleteLiveStream.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showLiveStream": {
+            "main": "./lib/actions/showLiveStream.js",
+            "title": "Fetch a live stream",
+            "description": "This operation shows the details of a specific live stream.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showLiveStream.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "updateLiveStream": {
+            "main": "./lib/actions/updateLiveStream.js",
+            "title": "Update a live stream",
+            "description": "This operation updates a live stream.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/updateLiveStream.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "regenerateConnectionCodeLiveStream": {
+            "main": "./lib/actions/regenerateConnectionCodeLiveStream.js",
+            "title": "Regenerate the connection code for a live stream",
+            "description": "This operation regenerates the connection code of a live stream.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/regenerateConnectionCodeLiveStream.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "resetLiveStream": {
+            "main": "./lib/actions/resetLiveStream.js",
+            "title": "Reset a live stream",
+            "description": "This operation resets a live stream.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/resetLiveStream.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "startLiveStream": {
+            "main": "./lib/actions/startLiveStream.js",
+            "title": "Start a live stream",
+            "description": "This operation starts a live stream.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/startLiveStream.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showLiveStreamState": {
+            "main": "./lib/actions/showLiveStreamState.js",
+            "title": "Fetch the state of a live stream",
+            "description": "This operation shows the current state of a live stream.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showLiveStreamState.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showLiveStreamStats": {
+            "main": "./lib/actions/showLiveStreamStats.js",
+            "title": "Fetch metrics for an active live stream",
+            "description": "This operation returns a hash of metrics keys, each of which identifies a status, text description, unit, and value.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showLiveStreamStats.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "stopLiveStream": {
+            "main": "./lib/actions/stopLiveStream.js",
+            "title": "Stop a live stream",
+            "description": "This operation stops a live stream.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/stopLiveStream.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showLiveStreamThumbnailUrl": {
+            "main": "./lib/actions/showLiveStreamThumbnailUrl.js",
+            "title": "Fetch the thumbnail URL of a live stream",
+            "description": "This operation shows the thumbnail URL of a started live stream.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showLiveStreamThumbnailUrl.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "listPlayers": {
+            "main": "./lib/actions/listPlayers.js",
+            "title": "Fetch all players",
+            "description": "This operation shows the details of all of your players.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/listPlayers.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showPlayer": {
+            "main": "./lib/actions/showPlayer.js",
+            "title": "Fetch a player",
+            "description": "This operation shows details of a specific player.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showPlayer.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "updatePlayer": {
+            "main": "./lib/actions/updatePlayer.js",
+            "title": "Update a player",
+            "description": "This operation updates a player.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/updatePlayer.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "requestPlayerRebuild": {
+            "main": "./lib/actions/requestPlayerRebuild.js",
+            "title": "Rebuild player code",
+            "description": "This operation rebuilds the player with the current configuration.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/requestPlayerRebuild.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showPlayerState": {
+            "main": "./lib/actions/showPlayerState.js",
+            "title": "Fetch the state of a player",
+            "description": "This operation shows the current state of a player.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showPlayerState.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "listPlayerUrls": {
+            "main": "./lib/actions/listPlayerUrls.js",
+            "title": "Fetch all player URLs",
+            "description": "This operation shows the details of all player URLs.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/listPlayerUrls.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "createPlayerUrl": {
+            "main": "./lib/actions/createPlayerUrl.js",
+            "title": "Create a player URL",
+            "description": "This operation creates a new player URL.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/createPlayerUrl.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "deletePlayerUrl": {
+            "main": "./lib/actions/deletePlayerUrl.js",
+            "title": "Delete a player URL",
+            "description": "This operation deletes a player URL. ",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/deletePlayerUrl.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showPlayerUrl": {
+            "main": "./lib/actions/showPlayerUrl.js",
+            "title": "Fetch a player URL",
+            "description": "This operation shows the details of a player URL.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showPlayerUrl.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "updatePlayerUrl": {
+            "main": "./lib/actions/updatePlayerUrl.js",
+            "title": "Update a player URL",
+            "description": "This operation updates a player URL.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/updatePlayerUrl.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "listRecordings": {
+            "main": "./lib/actions/listRecordings.js",
+            "title": "Fetch all recordings",
+            "description": "This operation shows the details of all of your recordings.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/listRecordings.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "deleteRecording": {
+            "main": "./lib/actions/deleteRecording.js",
+            "title": "Delete a recording",
+            "description": "This operation deletes a recording.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/deleteRecording.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showRecording": {
+            "main": "./lib/actions/showRecording.js",
+            "title": "Fetch a recording",
+            "description": "This operation shows the details of a specific recording.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showRecording.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showRecordingState": {
+            "main": "./lib/actions/showRecordingState.js",
+            "title": "Fetch the state of a recording",
+            "description": "This operation shows the current state of a recording.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showRecordingState.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "listSchedules": {
+            "main": "./lib/actions/listSchedules.js",
+            "title": "Fetch all schedules",
+            "description": "This operation shows the details of all of your schedules.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/listSchedules.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "createSchedule": {
+            "main": "./lib/actions/createSchedule.js",
+            "title": "Create a schedule",
+            "description": "This operation creates a schedule.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/createSchedule.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "deleteSchedule": {
+            "main": "./lib/actions/deleteSchedule.js",
+            "title": "Delete a schedule",
+            "description": "This operation deletes a schedule.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/deleteSchedule.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showSchedule": {
+            "main": "./lib/actions/showSchedule.js",
+            "title": "Fetch a schedule",
+            "description": "This operation shows the details of a specific schedule.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showSchedule.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "updateSchedule": {
+            "main": "./lib/actions/updateSchedule.js",
+            "title": "Update a schedule",
+            "description": "This operation updates a schedule.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/updateSchedule.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "disableSchedule": {
+            "main": "./lib/actions/disableSchedule.js",
+            "title": "Disable a schedule",
+            "description": "This operation disables a schedule.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/disableSchedule.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "enableSchedule": {
+            "main": "./lib/actions/enableSchedule.js",
+            "title": "Enable a schedule",
+            "description": "This operation enables a schedule.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/enableSchedule.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showScheduleState": {
+            "main": "./lib/actions/showScheduleState.js",
+            "title": "Fetch the state of a schedule",
+            "description": "This operation shows the current state of a schedule.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showScheduleState.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "listStreamSources": {
+            "main": "./lib/actions/listStreamSources.js",
+            "title": "Fetch all stream sources",
+            "description": "This operation shows the details of all of your stream sources.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/listStreamSources.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "createStreamSource": {
+            "main": "./lib/actions/createStreamSource.js",
+            "title": "Add a stream source",
+            "description": "This operation adds a stream source.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/createStreamSource.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "addStreamSource": {
+            "main": "./lib/actions/addStreamSource.js",
+            "title": "Deprecated operation",
+            "description": "POST /stream_sources/add/ is deprecated. To add a stream source, use POST /stream_sources instead.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/addStreamSource.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "deleteStreamSource": {
+            "main": "./lib/actions/deleteStreamSource.js",
+            "title": "Delete a stream source",
+            "description": "This operation deletes a stream source.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/deleteStreamSource.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showStreamSource": {
+            "main": "./lib/actions/showStreamSource.js",
+            "title": "Fetch a stream source",
+            "description": "This operation shows details of a specific stream source.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showStreamSource.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "updateStreamSource": {
+            "main": "./lib/actions/updateStreamSource.js",
+            "title": "Update a stream source",
+            "description": "This operation updates a stream source.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/updateStreamSource.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "listStreamTargets": {
+            "main": "./lib/actions/listStreamTargets.js",
+            "title": "Fetch all stream targets",
+            "description": "This operation lists the details of all of your stream targets.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/listStreamTargets.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "createStreamTarget": {
+            "main": "./lib/actions/createStreamTarget.js",
+            "title": "Create a stream target",
+            "description": "This operation creates a stream target. There are three types of targets that you can create: <strong>CustomStreamTarget</strong> for an an external, third-party destination; <strong>WowzaStreamTarget</strong> for a Wowza CDN target; or <strong>UltraLowLatencyStreamTarget</strong> for an ultra low latency Wowza CDN target. The availability of many parameters depends on the type of target you create.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/createStreamTarget.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "addStreamTarget": {
+            "main": "./lib/actions/addStreamTarget.js",
+            "title": "Deprecated operation",
+            "description": "POST /stream_targets/add/ is deprecated. To add a stream target, use POST /stream_targets instead.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/addStreamTarget.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "deleteStreamTarget": {
+            "main": "./lib/actions/deleteStreamTarget.js",
+            "title": "Delete a stream target",
+            "description": "This operation deletes a stream target.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/deleteStreamTarget.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showStreamTarget": {
+            "main": "./lib/actions/showStreamTarget.js",
+            "title": "Fetch a stream target",
+            "description": "This operation shows details of a specific stream target.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showStreamTarget.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "updateStreamTarget": {
+            "main": "./lib/actions/updateStreamTarget.js",
+            "title": "Update a stream target",
+            "description": "This operation updates a stream target.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/updateStreamTarget.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showStreamTargetMetricsCurrent": {
+            "main": "./lib/actions/showStreamTargetMetricsCurrent.js",
+            "title": "Fetch current health metrics for an active Wowza ultra low latency stream target",
+            "description": "This operation returns a snapshot of the current connection and throughput details for an active target whose <em>type</em> is <strong>UltraLowLatencyStreamTarget</strong>. The interval for current metrics is 30 seconds from the moment of the query.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showStreamTargetMetricsCurrent.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showStreamTargetMetricsHistoric": {
+            "main": "./lib/actions/showStreamTargetMetricsHistoric.js",
+            "title": "Fetch historic health metrics for a Wowza ultra low latency stream target",
+            "description": "This operation shows historic connection and throughput details for target whose <em>type</em> is <strong>UltraLowLatencyStreamTarget</strong>.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showStreamTargetMetricsHistoric.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "regenerateConnectionCodeStreamTarget": {
+            "main": "./lib/actions/regenerateConnectionCodeStreamTarget.js",
+            "title": "Regenerate the connection code for a stream target",
+            "description": "This operation regenerates the connection code of a stream target.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/regenerateConnectionCodeStreamTarget.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showStreamTargetGeoblock": {
+            "main": "./lib/actions/showStreamTargetGeoblock.js",
+            "title": "Fetch geo-blocking for a stream target",
+            "description": "This operation shows the details of geo-blocking applied to a specific stream target. Only stream targets whose <em>type</em> is <strong>WowzaStreamTarget</strong> can be geo-blocked.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showStreamTargetGeoblock.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "updateStreamTargetGeoblock": {
+            "main": "./lib/actions/updateStreamTargetGeoblock.js",
+            "title": "Update geo-blocking for a stream target",
+            "description": "This operation updates the geo-blocking applied to a stream target. Only stream targets whose <em>type</em> is <strong>WowzaStreamTarget</strong> can be geo-blocked.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/updateStreamTargetGeoblock.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "createStreamTargetGeoblock": {
+            "main": "./lib/actions/createStreamTargetGeoblock.js",
+            "title": "Create geo-blocking for a stream target",
+            "description": "This operation allows you to block or whitelist viewing of a stream target by geographic location. Only stream targets whose <em>type</em> is <strong>WowzaStreamTarget</strong> can be geo-blocked. For more information see the technical article [How to geo-block stream targets by using the Wowza Streaming Cloud REST API](https://www.wowza.com/docs/how-to-geo-block-stream-targets-by-using-the-wowza-streaming-cloud-rest-api).",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/createStreamTargetGeoblock.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "listStreamTargetProperties": {
+            "main": "./lib/actions/listStreamTargetProperties.js",
+            "title": "Fetch all properties of a stream target",
+            "description": "This operation shows the details of all of the properties assigned to a specific stream target. Properties can be applied to a <strong>CustomStreamTarget</strong> or <strong>WowzaStreamTarget</strong> whose <em>provider</em> is <strong>akamai_cupertino</strong>.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/listStreamTargetProperties.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "createStreamTargetProperty": {
+            "main": "./lib/actions/createStreamTargetProperty.js",
+            "title": "Create a property for a stream target",
+            "description": "This operation creates a property for a stream target. Properties can be applied to a <strong>CustomStreamTarget</strong> or <strong>WowzaStreamTarget</strong> whose <em>provider</em> is <strong>akamai_cupertino</strong>. For more information see the technical article [How to set advanced properties by using the Wowza Streaming Cloud REST API](https://www.wowza.com/docs/how-to-set-advanced-properties-by-using-the-wowza-streaming-cloud-rest-api).",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/createStreamTargetProperty.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "deleteStreamTargetProperty": {
+            "main": "./lib/actions/deleteStreamTargetProperty.js",
+            "title": "Delete a stream target property",
+            "description": "This operation removes a property from a stream target.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/deleteStreamTargetProperty.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showStreamTargetProperty": {
+            "main": "./lib/actions/showStreamTargetProperty.js",
+            "title": "Fetch a property of a stream target",
+            "description": "This operation shows the details of a specific property assigned to a specific stream target. Properties can be applied to a <strong>CustomStreamTarget</strong> or <strong>WowzaStreamTarget</strong> whose <em>provider</em> is <strong>akamai_cupertino</strong>.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showStreamTargetProperty.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showStreamTargetTokenAuth": {
+            "main": "./lib/actions/showStreamTargetTokenAuth.js",
+            "title": "Fetch token authorization for a stream target",
+            "description": "This operation shows the details of the token authorization applied to a stream target. Only stream targets whose <em>type</em> is <strong>WowzaStreamTarget</strong> can use token authorization.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showStreamTargetTokenAuth.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "updateStreamTargetTokenAuth": {
+            "main": "./lib/actions/updateStreamTargetTokenAuth.js",
+            "title": "Update token authorization for a stream target",
+            "description": "This operation updates the token authorization applied to a stream target. Only stream targets whose <em>type</em> is <strong>WowzaStreamTarget</strong> can use token authorization.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/updateStreamTargetTokenAuth.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "createStreamTargetTokenAuth": {
+            "main": "./lib/actions/createStreamTargetTokenAuth.js",
+            "title": "Create token authorization for a stream target",
+            "description": "This operation creates token authorization for a stream target. Only stream targets whose <em>type</em> is <strong>WowzaStreamTarget</strong> can use token authorization. For more information see the technical article [How to protect stream targets with token authorization by using the Wowza Streaming Cloud REST API](https://www.wowza.com/docs/how-to-protect-streams-with-token-authorization-by-using-the-wowza-streaming-cloud-rest-api).",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/createStreamTargetTokenAuth.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "listTranscoders": {
+            "main": "./lib/actions/listTranscoders.js",
+            "title": "Fetch all transcoders",
+            "description": "This operation shows the details of all of your transcoders.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/listTranscoders.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "createTranscoder": {
+            "main": "./lib/actions/createTranscoder.js",
+            "title": "Create a transcoder",
+            "description": "This operation creates a transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/createTranscoder.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "deleteTranscoder": {
+            "main": "./lib/actions/deleteTranscoder.js",
+            "title": "Delete a transcoder",
+            "description": "This operation deletes a transcoder, including all of its assigned output renditions and stream targets.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/deleteTranscoder.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showTranscoder": {
+            "main": "./lib/actions/showTranscoder.js",
+            "title": "Fetch a transcoder",
+            "description": "This operation shows the details of a specific transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showTranscoder.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "updateTranscoder": {
+            "main": "./lib/actions/updateTranscoder.js",
+            "title": "Update a transcoder",
+            "description": "This operation updates a transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/updateTranscoder.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "disableAllStreamTargetsTranscoder": {
+            "main": "./lib/actions/disableAllStreamTargetsTranscoder.js",
+            "title": "Disable a transcoder's stream targets",
+            "description": "This operation disables all of the stream targets assigned to a specific transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/disableAllStreamTargetsTranscoder.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "enableAllStreamTargetsTranscoder": {
+            "main": "./lib/actions/enableAllStreamTargetsTranscoder.js",
+            "title": "Enable a transcoder's stream targets",
+            "description": "This operation enables all of the stream targets assigned to a specific transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/enableAllStreamTargetsTranscoder.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "listTranscoderRecordings": {
+            "main": "./lib/actions/listTranscoderRecordings.js",
+            "title": "Fetch a transcoder's recordings",
+            "description": "This operation shows the details of all of the recordings for a specific transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/listTranscoderRecordings.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "resetTranscoder": {
+            "main": "./lib/actions/resetTranscoder.js",
+            "title": "Reset a transcoder",
+            "description": "This operation resets a transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/resetTranscoder.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "listTranscoderSchedules": {
+            "main": "./lib/actions/listTranscoderSchedules.js",
+            "title": "Fetch transcoder's schedules",
+            "description": "This operation shows the details of all of the schedules for a specific transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/listTranscoderSchedules.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "startTranscoder": {
+            "main": "./lib/actions/startTranscoder.js",
+            "title": "Start a transcoder",
+            "description": "This operation starts a transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/startTranscoder.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showTranscoderState": {
+            "main": "./lib/actions/showTranscoderState.js",
+            "title": "Fetch the state and uptime ID of a transcoder",
+            "description": "This operation shows the current state and uptime ID of a transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showTranscoderState.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showTranscoderStats": {
+            "main": "./lib/actions/showTranscoderStats.js",
+            "title": "Fetch statistics for a current transcoder",
+            "description": "This operation responds with a hash of metrics (keys) for a currently running transcoder. Each key has a <strong>status</strong>, <strong>text</strong> (description), <strong>units</strong>, and <strong>value</strong>.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showTranscoderStats.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "stopTranscoder": {
+            "main": "./lib/actions/stopTranscoder.js",
+            "title": "Stop a transcoder",
+            "description": "This operation stops a transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/stopTranscoder.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showTranscoderThumbnailUrl": {
+            "main": "./lib/actions/showTranscoderThumbnailUrl.js",
+            "title": "Fetch the thumbnail URL of a transcoder",
+            "description": "This operation shows the thumbnail URL of a started transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showTranscoderThumbnailUrl.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "listTranscoderOutputs": {
+            "main": "./lib/actions/listTranscoderOutputs.js",
+            "title": "Fetch all outputs of a transcoder",
+            "description": "This operation shows the details of all of the output renditions of a specific transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/listTranscoderOutputs.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "createTranscoderOutput": {
+            "main": "./lib/actions/createTranscoderOutput.js",
+            "title": "Create an output",
+            "description": "This operation creates an output rendition for a specific transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/createTranscoderOutput.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "deleteTranscoderOutput": {
+            "main": "./lib/actions/deleteTranscoderOutput.js",
+            "title": "Delete an output",
+            "description": "This operation deletes an output, including all of its assigned targets.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/deleteTranscoderOutput.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showTranscoderOutput": {
+            "main": "./lib/actions/showTranscoderOutput.js",
+            "title": "Fetch an output",
+            "description": "This operation shows the details of a specific output rendition for a specific transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showTranscoderOutput.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "updateTranscoderOutput": {
+            "main": "./lib/actions/updateTranscoderOutput.js",
+            "title": "Update an output",
+            "description": "This operation updates an output rendition.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/updateTranscoderOutput.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "addStreamTargetToTranscoderOutput": {
+            "main": "./lib/actions/addStreamTargetToTranscoderOutput.js",
+            "title": "Deprecated operation",
+            "description": "The operation POST /transcoders/{transcoder_id}/outputs/{id}/add_stream_target is deprecated. Use POST /transcoders/{transcoder_id}/outputs/{output_id}/output_stream_targets to add an existing stream target to an output.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/addStreamTargetToTranscoderOutput.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "removeStreamTargetToTranscoderOutput": {
+            "main": "./lib/actions/removeStreamTargetToTranscoderOutput.js",
+            "title": "Deprecated operation",
+            "description": "The operation DELETE /transcoders/{transcoder_id}/outputs/{id}/remove_stream_target is deprecated. Use DELETE /transcoders/{transcoder_id}/outputs/{output_id}/output_stream_targets/{id} to remove a stream target from an output.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/removeStreamTargetToTranscoderOutput.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "listTranscoderOutputOutputStreamTargets": {
+            "main": "./lib/actions/listTranscoderOutputOutputStreamTargets.js",
+            "title": "Fetch all output stream targets of an output of a transcoder",
+            "description": "This operation shows the details of all of the output stream targets of an output of a transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/listTranscoderOutputOutputStreamTargets.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "createTranscoderOutputOutputStreamTarget": {
+            "main": "./lib/actions/createTranscoderOutputOutputStreamTarget.js",
+            "title": "Create an output stream target",
+            "description": "This operation creates an output stream target. Targets whose <em>type</em> is <strong>UltraLowLatencyStreamTarget</strong> can't be added to output renditions.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/createTranscoderOutputOutputStreamTarget.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "deleteTranscoderOutputOutputStreamTarget": {
+            "main": "./lib/actions/deleteTranscoderOutputOutputStreamTarget.js",
+            "title": "Delete an output stream target",
+            "description": "This operation deletes an output stream target, including all of its assigned targets.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/deleteTranscoderOutputOutputStreamTarget.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showTranscoderOutputOutputStreamTarget": {
+            "main": "./lib/actions/showTranscoderOutputOutputStreamTarget.js",
+            "title": "Fetch an output stream target",
+            "description": "This operation shows the details of an output stream target.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showTranscoderOutputOutputStreamTarget.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "updateTranscoderOutputOutputStreamTarget": {
+            "main": "./lib/actions/updateTranscoderOutputOutputStreamTarget.js",
+            "title": "Update an output stream target",
+            "description": "This operation updates an output stream target.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/updateTranscoderOutputOutputStreamTarget.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "disableTranscoderOutputOutputStreamTarget": {
+            "main": "./lib/actions/disableTranscoderOutputOutputStreamTarget.js",
+            "title": "Disable an output stream target",
+            "description": "This operation disables an output stream target.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/disableTranscoderOutputOutputStreamTarget.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "enableTranscoderOutputOutputStreamTarget": {
+            "main": "./lib/actions/enableTranscoderOutputOutputStreamTarget.js",
+            "title": "Enable an output stream target",
+            "description": "This operation enables an output stream target.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/enableTranscoderOutputOutputStreamTarget.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "restartTranscoderOutputOutputStreamTarget": {
+            "main": "./lib/actions/restartTranscoderOutputOutputStreamTarget.js",
+            "title": "Restart an output stream target",
+            "description": "This operation restarts an output stream target.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/restartTranscoderOutputOutputStreamTarget.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "listTranscoderProperties": {
+            "main": "./lib/actions/listTranscoderProperties.js",
+            "title": "Fetch a transcoder's properties",
+            "description": "This operation shows all of the properties of a specific transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/listTranscoderProperties.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "createTranscoderProperty": {
+            "main": "./lib/actions/createTranscoderProperty.js",
+            "title": "Create a property for a transcoder",
+            "description": "This operation creates a property for a transcoder. For more information see the technical article [How to set advanced properties by using the Wowza Streaming Cloud REST API](https://www.wowza.com/docs/how-to-set-advanced-properties-by-using-the-wowza-streaming-cloud-rest-api).",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/createTranscoderProperty.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "deleteTranscoderProperty": {
+            "main": "./lib/actions/deleteTranscoderProperty.js",
+            "title": "Delete a transcoder's property",
+            "description": "This operation deletes a specific property from a specific transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/deleteTranscoderProperty.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showTranscoderProperty": {
+            "main": "./lib/actions/showTranscoderProperty.js",
+            "title": "Fetch a property for a transcoder",
+            "description": "This operation shows the details of a specific property for a specific transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showTranscoderProperty.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "indexUptimes": {
+            "main": "./lib/actions/indexUptimes.js",
+            "title": "Fetch all uptime records for a transcoder",
+            "description": "This operation shows all of the uptime records for a specific transcoder. An <em>uptime record</em> identifies a specific transcoding session.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/indexUptimes.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showUptime": {
+            "main": "./lib/actions/showUptime.js",
+            "title": "Fetch an uptime record",
+            "description": "This operation shows the details of a specific uptime record for a specific transcoder. An <em>uptime record</em> identifies a transcoding session.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showUptime.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showUptimeMetricsCurrent": {
+            "main": "./lib/actions/showUptimeMetricsCurrent.js",
+            "title": "Fetch current stream health metrics for an active transcoder",
+            "description": "This operation returns a snapshot of the current source connection and processing details of an active (running) transcoder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showUptimeMetricsCurrent.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showUptimeMetricsHistoric": {
+            "main": "./lib/actions/showUptimeMetricsHistoric.js",
+            "title": "Fetch historic stream health metrics for a transcoder",
+            "description": "This operation shows the historic source connection and processing details for a transcoding session (uptime record). The transcoder can be running or stopped. Metrics are recorded every 20 seconds.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showUptimeMetricsHistoric.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "usageNetworkStreamSourcesIndex": {
+            "main": "./lib/actions/usageNetworkStreamSourcesIndex.js",
+            "title": "Fetch network usage for all stream sources",
+            "description": "This operation shows the amount of network usage for all stream sources in the account. The default time frame is <em>from</em> the last billing date <em>to</em> the end of the current day.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/usageNetworkStreamSourcesIndex.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "usageNetworkStreamTargetsIndex": {
+            "main": "./lib/actions/usageNetworkStreamTargetsIndex.js",
+            "title": "Fetch network usage for all stream targets",
+            "description": "This operation shows the amount of network usage for all stream targets in the account cumulatively and individually. The default time frame is <em>from</em> the last billing date <em>to</em> the end of the current day.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/usageNetworkStreamTargetsIndex.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "usageNetworkTranscodersIndex": {
+            "main": "./lib/actions/usageNetworkTranscodersIndex.js",
+            "title": "Fetch network usage for all transcoders",
+            "description": "This operation shows the amount of network usage (egress) for all transcoders in the account. The default time frame is <em>from</em> the last billing date <em>to</em> the end of the current day.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/usageNetworkTranscodersIndex.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "usageStoragePeakRecordingIndex": {
+            "main": "./lib/actions/usageStoragePeakRecordingIndex.js",
+            "title": "Fetch peak recording storage",
+            "description": "This operation shows the amount of peak recording storage used for the account. The default time frame is <em>from</em> the last billing date <em>to</em> the end of the current day.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/usageStoragePeakRecordingIndex.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "usageTimeTranscodersIndex": {
+            "main": "./lib/actions/usageTimeTranscodersIndex.js",
+            "title": "Fetch stream processing time",
+            "description": "This operation shows the amount of stream processing time used by all transcoders in the account. The default time frame is <em>from</em> the last billing date <em>to</em> the end of the current day.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/usageTimeTranscodersIndex.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "showViewerDataStreamTarget": {
+            "main": "./lib/actions/showViewerDataStreamTarget.js",
+            "title": "Fetch viewer data for a stream target",
+            "description": "This operation shows viewer data for a specific stream target. The default time frame is <em>from</em> the last billing date <em>to</em> the end of the current day.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/showViewerDataStreamTarget.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

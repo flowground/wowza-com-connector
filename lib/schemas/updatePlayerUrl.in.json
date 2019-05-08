@@ -1,0 +1,59 @@
+{
+    "type": "object",
+    "properties": {
+        "player_id": {
+            "required": true,
+            "type": "string"
+        },
+        "id": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "properties": {
+                        "url": {
+                            "properties": {
+                                "bitrate": {
+                                    "description": "The video bitrate, in kilobits per second (Kbps), of the output rendition that will be played at the URL. May correspond to the bitrate of an output rendition being used by the live stream or transcoder. Must be greater than <strong>0</strong>.",
+                                    "example": 4128,
+                                    "format": "int32",
+                                    "type": "integer"
+                                },
+                                "height": {
+                                    "description": "The height, in pixels, of the output rendition that will be played at the URL. May correspond to the height of an output rendition being used by the live stream or transcoder. Must be greater than <strong>0</strong>.",
+                                    "example": 1080,
+                                    "format": "int32",
+                                    "type": "integer"
+                                },
+                                "label": {
+                                    "description": "A descriptive name for the player URL. Maximum 255 characters.",
+                                    "example": "1920",
+                                    "type": "string"
+                                },
+                                "url": {
+                                    "description": "The URL of the player. If using a Wowza CDN target, the URL format is `http://[wowzasubdomain]-f.akamaihd.net/z/[stream_name]_[angle]@[stream_id]/manifest.f4m` for Adobe HDS playback or `http://[wowzasubdomain]-f.akamaihd.net/i/[stream_name]_[angle]@[stream_id]/master.m3u8` for Apple HLS playback.",
+                                    "example": "http://somedomain.com/path/to/stream.m3u8",
+                                    "type": "string"
+                                },
+                                "width": {
+                                    "description": "The width, in pixels, of the output rendition that will be played at the URL. May correspond to the width of an output rendition being used by the live stream or transcoder. Must be greater than <strong>0</strong>.",
+                                    "example": 1920,
+                                    "format": "int32",
+                                    "type": "integer"
+                                }
+                            },
+                            "title": "url",
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "url"
+                    ],
+                    "type": "object"
+                }
+            ]
+        }
+    }
+}

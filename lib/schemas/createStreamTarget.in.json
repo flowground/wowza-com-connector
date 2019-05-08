@@ -1,0 +1,191 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "allOf": [
+                {
+                    "properties": {
+                        "stream_target": {
+                            "properties": {
+                                "backup_url": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>CustomStreamTarget</strong>. The backup RTMP ingest URL of the target, without the preceding protocol and without the trailing slash (/).",
+                                    "example": "rtmp://b.ep337857.i.akamaientrypoint.net/EntryPoint",
+                                    "type": "string"
+                                },
+                                "chunk_size": {
+                                    "description": "<strong>The <em>chunk_size</em> parameter is deprecated. To set the chunk size of a stream target, use the POST /stream_targets/[stream_target_id]/properties endpoint.</strong> Only for targets whose <em>type</em> is <strong>WowzaStreamTarget</strong> and <em>provider</em> is <strong>akamai_cupertino</strong>. The segment duration for HLS encoding. The default is <strong>10</strong>.",
+                                    "enum": [
+                                        2,
+                                        4,
+                                        6,
+                                        8,
+                                        10
+                                    ],
+                                    "example": 10,
+                                    "type": "string"
+                                },
+                                "enable_hls": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>UltraLowLatencyStreamTarget</strong>. If <strong>true</strong>, creates an Apple HLS URL for playback on iOS devices (<em>hls_playback_url</em>). The default is <strong>false</strong>.",
+                                    "example": true,
+                                    "type": "boolean"
+                                },
+                                "enabled": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>UltraLowLatencyStreamTarget</strong>. If <strong>true</strong> (the default), the source stream is ready to be ingested. If **false**, the source stream won't be ingested by the target's origin server.",
+                                    "example": true,
+                                    "type": "boolean"
+                                },
+                                "hds_playback_url": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>CustomStreamTarget</strong> and <em>provider</em> is <em>not</em> <strong>akamai_cupertino</strong>. The web address that the target uses to play Adobe HDS streams.",
+                                    "example": "rtmp://cp319499.live.edgefcs.net/live/c9467d50@337857",
+                                    "type": "string"
+                                },
+                                "hls_playback_url": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>CustomStreamTarget</strong>. The web address that the target uses to play Apple HLS streams.",
+                                    "example": "http://xyz.akamaihd.net/z/723a8b9c_1@337857/manifest.f4m",
+                                    "type": "string"
+                                },
+                                "ingest_ip_whitelist": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>UltraLowLatencyStreamTarget</strong> and <em>source_delivery_method</em> is **push**. A list of IP addresses that can be used to connect to the target's origin server.",
+                                    "example": [
+                                        "10.11.12.*",
+                                        "13.12.11.10"
+                                    ],
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array"
+                                },
+                                "location": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>WowzaStreamTarget</strong> and <em>provider</em> is <em>not</em> <strong>akamai_cupertino</strong>. Choose a location as close as possible to your video source.",
+                                    "enum": [
+                                        "asia_pacific_australia",
+                                        "asia_pacific_japan",
+                                        "asia_pacific_singapore",
+                                        "asia_pacific_taiwan",
+                                        "eu_belgium",
+                                        "eu_germany",
+                                        "eu_ireland",
+                                        "south_america_brazil",
+                                        "us_central_iowa",
+                                        "us_east_s_carolina",
+                                        "us_east_virginia",
+                                        "us_west_california",
+                                        "us_west_oregon"
+                                    ],
+                                    "example": "eu_germany",
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "description": "A descriptive name for the stream target. Maximum 255 characters.",
+                                    "example": "My Custom Stream Target",
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>CustomStreamTarget</strong> and <em>provider</em> is <em>not</em> **akamai_cupertino**. A <em>username</em> must also be present. The password associated with the target username for RTMP authentication.",
+                                    "example": "cb1e77e98d",
+                                    "type": "string"
+                                },
+                                "primary_url": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>CustomStreamTarget</strong>. The primary RTMP ingest URL, without the preceding protocol and without the trailing slash (/).",
+                                    "example": "rtmp://p.ep337857.i.akamaientrypoint.net/EntryPoint",
+                                    "type": "string"
+                                },
+                                "provider": {
+                                    "description": "The CDN for the target. <br /><br />Required for targets whose <em>type</em> is <strong>CustomStreamTarget</strong>. Valid values for <strong>CustomStreamTarget</strong> are <strong>akamai</strong>, <strong>akamai_cupertino</strong>, <strong>akamai_rtmp</strong>, <strong>limelight</strong>, <strong>rtmp</strong>, and <strong>ustream</strong>. Values can be appended with **_mock** to use in the sandbox environment. <br /><br />Valid values for <strong>WowzaStreamTarget</strong> are <strong>akamai</strong>, <strong>akamai_cupertino</strong> (default), <strong>akamai_legacy_rtmp</strong>, and <strong>wowza</strong>. <br /><br /><strong>UltraLowLatencyStreamTarget</strong> defaults to and must be <strong>wowza</strong>.",
+                                    "example": "rtmp",
+                                    "type": "string"
+                                },
+                                "region_override": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>UltraLowLatencyStreamTarget</strong> and <em>source_delivery_method</em> is **pull**. The location of the stream target's origin server. If unspecified, Wowza Streaming Cloud determines the optimal region for the origin server.",
+                                    "enum": [
+                                        "azure-westus",
+                                        "azure-eastus2",
+                                        "azure-northeurope"
+                                    ],
+                                    "example": "azure-westus",
+                                    "type": "string"
+                                },
+                                "rtmp_playback_url": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>CustomStreamTarget</strong>. The web address that the target uses to play RTMP streams.",
+                                    "example": "rtmp://cp123456.live.edgefcs.net/live//[EVENT]@654321",
+                                    "type": "string"
+                                },
+                                "source_delivery_method": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>UltraLowLatencyStreamTarget</strong>. The type of connection between the stream source and the stream target. **push** instructs the source to push the stream to the stream target. **pull** instructs the stream target to pull the stream from the source.",
+                                    "enum": [
+                                        "push",
+                                        "pull"
+                                    ],
+                                    "example": "pull",
+                                    "type": "string"
+                                },
+                                "source_url": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>UltraLowLatencyStreamTarget</strong> and <em>source_delivery_method</em> is **pull**. The URL of a source IP camera or encoder connecting to the stream target.",
+                                    "example": "rtsp://example.com/video",
+                                    "type": "string"
+                                },
+                                "stream_name": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>CustomStreamTarget</strong>. The name of the stream as defined in the target's ingestion settings.",
+                                    "example": "c8467d50@337857",
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "description": "<strong>WowzaStreamTarget</strong> is a Wowza CDN target. <strong>UltraLowLatencyStreamTarget</strong> is an ultra low latency Wowza stream target. <strong>CustomStreamTarget</strong> (the default) is an external, third-party destination. <!--and <strong>FacebookStreamTarget</strong> (a Facebook Live target).-->",
+                                    "enum": [
+                                        "WowzaStreamTarget",
+                                        "UltraLowLatencyStreamTarget",
+                                        "CustomStreamTarget"
+                                    ],
+                                    "example": "CustomStreamTarget",
+                                    "type": "string"
+                                },
+                                "use_cors": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>WowzaStreamTarget</strong> and <em>provider</em> is <strong>akamai_cupertino</strong>. CORS, or cross-origin resource sharing, allows streams to be sent to providers such as Peer5, Viblast, and Streamroot, which implement a peer-to-peer grid delivery system.",
+                                    "example": true,
+                                    "type": "boolean"
+                                },
+                                "use_https": {
+                                    "description": "<strong>The <em>use_https</em> parameter is deprecated. Use the POST /stream_targets/[<em>stream_target_id</em>]/properties endpoint and the <em>relative_playlists</em> parameter instead.</strong>",
+                                    "example": true,
+                                    "type": "boolean"
+                                },
+                                "use_secure_ingest": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>WowzaStreamTarget</strong> and <em>provider</em> is <strong>akamai_cupertino</strong>. If <strong>true</strong>, generates a <em>secure_ingest_query_param</em> to securely deliver the stream from the transcoder to the provider.",
+                                    "example": true,
+                                    "type": "boolean"
+                                },
+                                "username": {
+                                    "description": "Only for targets whose <em>type</em> is <strong>CustomStreamTarget</strong> and <em>provider</em> is <em>not</em> **akamai_cupertino**. The username or ID that the target uses for RTMP authentication.",
+                                    "example": "319699",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "name",
+                                "location",
+                                "primary_url",
+                                "source_delivery_method",
+                                "source_url",
+                                "stream_name"
+                            ],
+                            "title": "stream_target",
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "stream_target"
+                    ],
+                    "type": "object"
+                }
+            ],
+            "example": {
+                "stream_target": {
+                    "location": "us_west_california",
+                    "name": "My RTMP Stream Target",
+                    "provider": "akamai",
+                    "type": "WowzaStreamTarget"
+                }
+            }
+        }
+    }
+}

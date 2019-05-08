@@ -1,0 +1,44 @@
+{
+    "type": "object",
+    "properties": {
+        "transcoder_id": {
+            "required": true,
+            "type": "string"
+        },
+        "output_id": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "properties": {
+                        "output_stream_target": {
+                            "properties": {
+                                "stream_target_id": {
+                                    "description": "The unique alphanumeric string that identifies the stream target.",
+                                    "example": "1234abcd",
+                                    "type": "string"
+                                },
+                                "use_stream_target_backup_url": {
+                                    "description": "Specifies whether to use the stream target's primary or backup URL.",
+                                    "example": true,
+                                    "type": "boolean"
+                                }
+                            },
+                            "required": [
+                                "stream_target_id"
+                            ],
+                            "title": "output_stream_target",
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "output_stream_target"
+                    ],
+                    "type": "object"
+                }
+            ]
+        }
+    }
+}

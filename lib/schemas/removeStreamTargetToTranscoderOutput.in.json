@@ -1,0 +1,36 @@
+{
+    "type": "object",
+    "properties": {
+        "transcoder_id": {
+            "required": true,
+            "type": "string"
+        },
+        "id": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "output_stream_target": {
+                    "properties": {
+                        "stream_target_id": {
+                            "description": "The unique alphanumeric string that identifies the stream target.",
+                            "example": "jfbKkrTL",
+                            "type": "string",
+                            "x-lookup-uri": "/transcoders/{transcoder_id}/outputs/{id}.targets"
+                        }
+                    },
+                    "required": [
+                        "stream_target_id"
+                    ],
+                    "title": "output_stream_target",
+                    "type": "object"
+                }
+            },
+            "required": [
+                "output_stream_target"
+            ],
+            "type": "object"
+        }
+    }
+}

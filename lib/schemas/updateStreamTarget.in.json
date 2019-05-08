@@ -1,0 +1,106 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "stream_target": {
+                    "properties": {
+                        "backup_url": {
+                            "description": "Only for targets whose <em>type</em> is <strong>CustomStreamTarget</strong>. The backup RTMP ingest URL of the target, without the preceding protocol and without the trailing slash (/).",
+                            "example": "rtmp://b.ep337857.i.akamaientrypoint.net/EntryPoint",
+                            "type": "string"
+                        },
+                        "chunk_size": {
+                            "description": "<strong>The <em>chunk_size</em> parameter is deprecated. To set the chunk size of a stream target, use the POST /stream_targets/[stream_target_id]/properties endpoint.</strong> Only for targets whose <em>type</em> is <strong>WowzaStreamTarget</strong> and <em>provider</em> is <strong>akamai_cupertino</strong>. The segment duration for HLS encoding. The default is <strong>10</strong>.",
+                            "enum": [
+                                2,
+                                4,
+                                6,
+                                8,
+                                10
+                            ],
+                            "example": 10,
+                            "type": "string"
+                        },
+                        "enabled": {
+                            "description": "Only for targets whose <em>type</em> is <strong>UltraLowLatencyStreamTarget</strong>. If <strong>true</strong> (the default), the source stream is ready to be ingested. If **false**, the source stream won't be ingested by the target's origin server.",
+                            "example": true,
+                            "type": "boolean"
+                        },
+                        "hds_playback_url": {
+                            "description": "Only for targets whose <em>type</em> is <strong>CustomStreamTarget</strong> and <em>provider</em> is <em>not</em> <strong>akamai_cupertino</strong>. The web address that the target uses to play Adobe HDS streams.",
+                            "example": "rtmp://cp319499.live.edgefcs.net/live/c9467d50@337857",
+                            "type": "string"
+                        },
+                        "hls_playback_url": {
+                            "description": "Only for targets whose <em>type</em> is <strong>CustomStreamTarget</strong>. The web address that the target uses to play Apple HLS streams.",
+                            "example": "http://xyz.akamaihd.net/z/723a8b9c_1@337857/manifest.f4m",
+                            "type": "string"
+                        },
+                        "ingest_ip_whitelist": {
+                            "description": "Only for targets whose <em>type</em> is <strong>UltraLowLatencyStreamTarget</strong> and <em>source_delivery_method</em> is **push**. A list of IP addresses that can be used to connect to the target's origin server.",
+                            "example": [
+                                "10.11.12.*",
+                                "13.12.11.10"
+                            ],
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "name": {
+                            "description": "A descriptive name for the stream target. Maximum 255 characters.",
+                            "example": "My Custom Stream Target",
+                            "type": "string"
+                        },
+                        "password": {
+                            "description": "Only for targets whose <em>type</em> is <strong>CustomStreamTarget</strong> and <em>provider</em> is <em>not</em> **akamai_cupertino**. A <em>username</em> must also be present. The password associated with the target username for RTMP authentication.",
+                            "example": "cb1e77e98d",
+                            "type": "string"
+                        },
+                        "primary_url": {
+                            "description": "Only for targets whose <em>type</em> is <strong>CustomStreamTarget</strong>. The primary RTMP ingest URL, without the preceding protocol and without the trailing slash (/).",
+                            "example": "rtmp://p.ep337857.i.akamaientrypoint.net/EntryPoint",
+                            "type": "string"
+                        },
+                        "provider": {
+                            "description": "The CDN for the target. <br /><br />Required for targets whose <em>type</em> is <strong>CustomStreamTarget</strong>. Valid values for <strong>CustomStreamTarget</strong> are <strong>akamai</strong>, <strong>akamai_cupertino</strong>, <strong>akamai_rtmp</strong>, <strong>limelight</strong>, <strong>rtmp</strong>, and <strong>ustream</strong>. Values can be appended with **_mock** to use in the sandbox environment. <br /><br />Valid values for <strong>WowzaStreamTarget</strong> are <strong>akamai</strong>, <strong>akamai_cupertino</strong> (default), <strong>akamai_legacy_rtmp</strong>, and <strong>wowza</strong>. <br /><br /><strong>UltraLowLatencyStreamTarget</strong> defaults to and must be <strong>wowza</strong>.",
+                            "example": "rtmp",
+                            "type": "string"
+                        },
+                        "rtmp_playback_url": {
+                            "description": "Only for targets whose <em>type</em> is <strong>CustomStreamTarget</strong>. The web address that the target uses to play RTMP streams.",
+                            "example": "rtmp://cp123456.live.edgefcs.net/live//[EVENT]@654321",
+                            "type": "string"
+                        },
+                        "source_url": {
+                            "description": "Only for targets whose <em>type</em> is <strong>UltraLowLatencyStreamTarget</strong> and <em>source_delivery_method</em> is **pull**. The URL of a source IP camera or encoder connecting to the stream target.",
+                            "example": "ws://example.com/stream/stream1",
+                            "type": "string"
+                        },
+                        "stream_name": {
+                            "description": "Only for targets whose <em>type</em> is <strong>CustomStreamTarget</strong>. The name of the stream as defined in the target's ingestion settings.",
+                            "example": "c8467d50@337857",
+                            "type": "string"
+                        },
+                        "username": {
+                            "description": "Only for targets whose <em>type</em> is <strong>CustomStreamTarget</strong> and <em>provider</em> is <em>not</em> **akamai_cupertino**. The username or ID that the target uses for RTMP authentication.",
+                            "example": "319699",
+                            "type": "string"
+                        }
+                    },
+                    "title": "stream_target",
+                    "type": "object"
+                }
+            },
+            "required": [
+                "stream_target"
+            ],
+            "type": "object"
+        }
+    }
+}

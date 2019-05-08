@@ -1,0 +1,13 @@
+{
+    "type": "object",
+    "properties": {
+        "stream_target_id": {
+            "required": true,
+            "type": "string"
+        },
+        "id": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

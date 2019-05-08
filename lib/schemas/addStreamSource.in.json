@@ -1,0 +1,67 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "stream_source": {
+                    "properties": {
+                        "backup_ip_address": {
+                            "description": "If <em>location_method</em> is <strong>ip_address</strong>, specify the backup IP address of the source encoder.",
+                            "example": "12.13.14.16",
+                            "type": "string"
+                        },
+                        "ip_address": {
+                            "description": "If <em>location_method</em> is <strong>ip_address</strong>, specify the primary IP address of the source encoder.",
+                            "example": "12.13.14.16",
+                            "type": "string"
+                        },
+                        "location": {
+                            "description": "If <em>location_method</em> is <strong>region</strong>, specify a location as close as possible to the source encoder.",
+                            "enum": [
+                                "asia_pacific_australia",
+                                "asia_pacific_japan",
+                                "asia_pacific_singapore",
+                                "asia_pacific_taiwan",
+                                "eu_belgium",
+                                "eu_germany",
+                                "eu_ireland",
+                                "south_america_brazil",
+                                "us_central_iowa",
+                                "us_east_s_carolina",
+                                "us_east_virginia",
+                                "us_west_california",
+                                "us_west_oregon"
+                            ],
+                            "example": "us_west_california",
+                            "type": "string"
+                        },
+                        "location_method": {
+                            "description": "The method used to determine the location of the stream source, either by <strong>region</strong> or based on the source encoder's <strong>ip_address</strong>.",
+                            "enum": [
+                                "region",
+                                "ip_address"
+                            ],
+                            "example": "region",
+                            "type": "string"
+                        },
+                        "name": {
+                            "description": "A descriptive name for the stream source. Maximum 255 characters.",
+                            "example": "My Stream Source",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "name",
+                        "location_method"
+                    ],
+                    "title": "stream_source",
+                    "type": "object"
+                }
+            },
+            "required": [
+                "stream_source"
+            ],
+            "type": "object"
+        }
+    }
+}

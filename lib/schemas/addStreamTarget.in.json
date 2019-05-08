@@ -1,0 +1,85 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "stream_target": {
+                    "properties": {
+                        "chunk_size": {
+                            "description": "<strong>The <em>chunk_size</em> parameter is deprecated. To set the chunk size of a stream target, use the POST /stream_targets/[stream_target_id]/properties endpoint.</strong> Only for targets whose <em>type</em> is <strong>WowzaStreamTarget</strong> and <em>provider</em> is <strong>akamai_cupertino</strong>. The segment duration for HLS encoding. The default is <strong>10</strong>.",
+                            "enum": [
+                                2,
+                                4,
+                                6,
+                                8,
+                                10
+                            ],
+                            "example": 10,
+                            "type": "string"
+                        },
+                        "location": {
+                            "description": "Only for targets whose <em>type</em> is <strong>WowzaStreamTarget</strong> and <em>provider</em> is <em>not</em> <strong>akamai_cupertino</strong>. Choose a location as close as possible to your video source.",
+                            "enum": [
+                                "asia_pacific_australia",
+                                "asia_pacific_japan",
+                                "asia_pacific_singapore",
+                                "asia_pacific_taiwan",
+                                "eu_belgium",
+                                "eu_germany",
+                                "eu_ireland",
+                                "south_america_brazil",
+                                "us_central_iowa",
+                                "us_east_s_carolina",
+                                "us_east_virginia",
+                                "us_west_california",
+                                "us_west_oregon"
+                            ],
+                            "example": "eu_germany",
+                            "type": "string"
+                        },
+                        "name": {
+                            "description": "A descriptive name for the stream target. Maximum 255 characters.",
+                            "example": "My Stream Target",
+                            "type": "string"
+                        },
+                        "provider": {
+                            "description": "The CDN for the target. <br /><br />Required for targets whose <em>type</em> is <strong>CustomStreamTarget</strong>. Valid values for <strong>CustomStreamTarget</strong> are <strong>akamai</strong>, <strong>akamai_cupertino</strong>, <strong>akamai_rtmp</strong>, <strong>limelight</strong>, <strong>rtmp</strong>, and <strong>ustream</strong>. Values can be appended with **_mock** to use in the sandbox environment. <br /><br />Valid values for <strong>WowzaStreamTarget</strong> are <strong>akamai</strong>, <strong>akamai_cupertino</strong> (default), <strong>akamai_legacy_rtmp</strong>, and <strong>wowza</strong>. <br /><br /><strong>UltraLowLatencyStreamTarget</strong> defaults to and must be <strong>wowza</strong>.",
+                            "example": "akamai",
+                            "type": "string"
+                        },
+                        "type": {
+                            "description": "<strong>WowzaStreamTarget</strong> is a Wowza CDN target. <strong>UltraLowLatencyStreamTarget</strong> is an ultra low latency Wowza stream target. <strong>CustomStreamTarget</strong> (the default) is an external, third-party destination. <!--and <strong>FacebookStreamTarget</strong> (a Facebook Live target).-->",
+                            "example": "WowzaStreamTarget",
+                            "type": "string"
+                        },
+                        "use_cors": {
+                            "description": "Only for targets whose <em>type</em> is <strong>WowzaStreamTarget</strong> and <em>provider</em> is <strong>akamai_cupertino</strong>. CORS, or cross-origin resource sharing, allows streams to be sent to providers such as Peer5, Viblast, and Streamroot, which implement a peer-to-peer grid delivery system.",
+                            "example": true,
+                            "type": "boolean"
+                        },
+                        "use_https": {
+                            "description": "<strong>The <em>use_https</em> parameter is deprecated. Use the POST /stream_targets/[<em>stream_target_id</em>]/properties endpoint and the <em>relative_playlists</em> parameter instead.</strong>",
+                            "example": true,
+                            "type": "boolean"
+                        },
+                        "use_secure_ingest": {
+                            "description": "Only for targets whose <em>type</em> is <strong>WowzaStreamTarget</strong> and <em>provider</em> is <strong>akamai_cupertino</strong>. If <strong>true</strong>, generates a <em>secure_ingest_query_param</em> to securely deliver the stream from the transcoder to the provider.",
+                            "example": true,
+                            "type": "boolean"
+                        }
+                    },
+                    "required": [
+                        "name",
+                        "location"
+                    ],
+                    "title": "wowza_stream_target",
+                    "type": "object"
+                }
+            },
+            "required": [
+                "stream_target"
+            ],
+            "type": "object"
+        }
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "type": "object",
+    "properties": {
+        "from": {
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+        },
+        "to": {
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+        },
+        "transcoder_type": {
+            "required": false,
+            "type": "string",
+            "enum": [
+                "transcoded",
+                "passthrough"
+            ]
+        },
+        "billing_mode": {
+            "required": false,
+            "type": "string",
+            "enum": [
+                "pay_as_you_go",
+                "twentyfour_seven"
+            ]
+        }
+    }
+}

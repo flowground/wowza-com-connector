@@ -1,0 +1,62 @@
+{
+    "type": "object",
+    "properties": {
+        "stream_target_id": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "properties": {
+                        "geoblock": {
+                            "properties": {
+                                "countries": {
+                                    "description": "Required when <em>type</em> is <strong>allow</strong> or <strong>deny</strong>. The locations affected by the geo-blocking. Enter a comma-separated list (an array) of two-letter ISO 3166-1 country codes. For a list, see <a href='https://en.wikipedia.org/wiki/ISO_3166-1' target='_blank'>ISO 3166-1</a> on wikipedia.",
+                                    "example": [
+                                        "us",
+                                        "de"
+                                    ],
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array"
+                                },
+                                "type": {
+                                    "description": "The type of geo-blocking to apply. The value <strong>allow</strong> permits viewing only in the locations specified by the <em>countries</em> parameter. The value <strong>deny</strong> prohibits viewing in the locations specified by the <em>countries</em> parameter. The value <strong>disabled</strong> (the default) permits viewing everywhere.",
+                                    "enum": [
+                                        "disabled",
+                                        "allow",
+                                        "deny"
+                                    ],
+                                    "example": "allow",
+                                    "type": "string"
+                                },
+                                "whitelist": {
+                                    "description": "Whitelisted addresses can be viewed even if they're within a geo-blocked location. Enter a comma-separated list (an array) of IP addresses that always allow streaming.",
+                                    "example": [
+                                        "1.2.3.4",
+                                        "9.8.7.6"
+                                    ],
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array"
+                                }
+                            },
+                            "required": [
+                                "type"
+                            ],
+                            "title": "geoblock",
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "geoblock"
+                    ],
+                    "type": "object"
+                }
+            ]
+        }
+    }
+}

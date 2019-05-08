@@ -1,0 +1,92 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "schedule": {
+                    "properties": {
+                        "action_type": {
+                            "description": "The type of action that the schedule should trigger on the transcoder. The default is <strong>start</strong>.",
+                            "enum": [
+                                "start",
+                                "stop",
+                                "start_stop"
+                            ],
+                            "example": "start_stop",
+                            "type": "string"
+                        },
+                        "end_repeat": {
+                            "description": "The month, day, and year that a recurring schedule should stop running. Specify <strong>YYYY-MM-DD</strong>.",
+                            "example": "2017-12-15",
+                            "format": "date",
+                            "type": "string"
+                        },
+                        "name": {
+                            "description": "A descriptive name for the schedule. Maximum 255 characters.",
+                            "example": "Scheduled start for my camera",
+                            "type": "string"
+                        },
+                        "recurrence_data": {
+                            "description": "The day or days of the week that a recurring schedule should run.",
+                            "enum": [
+                                "sunday",
+                                "monday",
+                                "tuesday",
+                                "wednesday",
+                                "thursday",
+                                "friday",
+                                "saturday"
+                            ],
+                            "example": "monday,tuesday,wednesday,thursday,friday",
+                            "type": "string"
+                        },
+                        "recurrence_type": {
+                            "description": "A schedule can run one time only (<strong>once</strong>) or repeat (<strong>recur</strong>) until a specified <em>end_repeat</em> date. The default is <strong>once</strong>.",
+                            "enum": [
+                                "once",
+                                "recur"
+                            ],
+                            "example": "recur",
+                            "type": "string"
+                        },
+                        "start_repeat": {
+                            "description": "The month, day, and year that the recurring schedule should go into effect. Specify <strong>YYYY-MM-DD</strong>.",
+                            "example": "2017-11-16",
+                            "format": "date",
+                            "type": "string"
+                        },
+                        "start_transcoder": {
+                            "description": "The month, day, year, and time of day that the <em>action_type</em> <strong>start</strong> should occur. Specify <strong>YYYY-MM-DD HH:MM:SS</strong> where <strong>HH</strong> is a 24-hour clock in UTC.",
+                            "example": "2017-11-16T00:00:00.000Z",
+                            "format": "date-time",
+                            "type": "string"
+                        },
+                        "stop_transcoder": {
+                            "description": "The month, day, year, and time of day that the <em>action_type</em> <strong>stop</strong> should occur. Specify <strong>YYYY-MM-DD HH:MM:SS</strong> where <strong>HH</strong> is a 24-hour clock in UTC.",
+                            "example": "2017-12-15T23:59:59.999Z",
+                            "format": "date-time",
+                            "type": "string"
+                        },
+                        "transcoder_id": {
+                            "description": "The unique alphanumeric string that identifies the transcoder being scheduled.",
+                            "example": "Vq7zwF1P",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "name",
+                        "transcoder_id",
+                        "action_type",
+                        "recurrence_type"
+                    ],
+                    "title": "schedule",
+                    "type": "object"
+                }
+            },
+            "required": [
+                "schedule"
+            ],
+            "type": "object"
+        }
+    }
+}

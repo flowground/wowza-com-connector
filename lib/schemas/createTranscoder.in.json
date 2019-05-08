@@ -1,0 +1,436 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "transcoder": {
+                    "properties": {
+                        "billing_mode": {
+                            "description": "The billing mode for the transcoder. The default is <strong>pay_as_you_go</strong>.",
+                            "enum": [
+                                "pay_as_you_go",
+                                "twentyfour_seven"
+                            ],
+                            "example": "pay_as_you_go",
+                            "type": "string"
+                        },
+                        "broadcast_location": {
+                            "description": "The location where Wowza Streaming Cloud transcodes your stream. Choose a location as close as possible to your video source.",
+                            "enum": [
+                                "asia_pacific_australia",
+                                "asia_pacific_japan",
+                                "asia_pacific_singapore",
+                                "asia_pacific_taiwan",
+                                "eu_belgium",
+                                "eu_germany",
+                                "eu_ireland",
+                                "south_america_brazil",
+                                "us_central_iowa",
+                                "us_east_s_carolina",
+                                "us_east_virginia",
+                                "us_west_california",
+                                "us_west_oregon"
+                            ],
+                            "example": "us_central_iowa",
+                            "type": "string"
+                        },
+                        "buffer_size": {
+                            "description": "The size, in milliseconds, of the incoming buffer. <strong>0</strong> means no buffer. The default is <strong>4000</strong> (4 seconds).",
+                            "enum": [
+                                0,
+                                1000,
+                                2000,
+                                3000,
+                                4000,
+                                5000,
+                                6000,
+                                7000,
+                                8000
+                            ],
+                            "example": 4000,
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "closed_caption_type": {
+                            "description": "The type of closed caption data being passed from the source. The default, <strong>none</strong>, indicates that no data is being provided. <strong>cea</strong> indicates that a CEA closed captioning data stream is being provided. <strong>on_text</strong> indicates that an onTextData closed captioning data stream is being provided. <strong>both</strong> indicates that both CEA and onTextData closed captioing data streams are being provided.",
+                            "enum": [
+                                "none",
+                                "cea",
+                                "on_text",
+                                "both"
+                            ],
+                            "example": "cea",
+                            "type": "string"
+                        },
+                        "delivery_method": {
+                            "description": "The type of connection between the source encoder and the transcoder. The default, <strong>pull</strong>, instructs the transcoder to pull the video from the source. <strong>push</strong> instructs the source to push the stream to the transcoder. <strong>cdn</strong> uses a stream source to deliver the stream to the transcoder.",
+                            "enum": [
+                                "pull",
+                                "cdn",
+                                "push"
+                            ],
+                            "example": "pull",
+                            "type": "string"
+                        },
+                        "delivery_protocols": {
+                            "description": "An array of playback protocols enabled for this transcoder. By default, <strong>rtmp</strong>, <strong>rtsp</strong>, and <strong>wowz</strong> are returned.",
+                            "example": [
+                                "rtmp",
+                                "rtsp",
+                                "wowz"
+                            ],
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "description": {
+                            "description": "An optional description of the transcoder.",
+                            "example": "My Transcoder Description",
+                            "type": "string"
+                        },
+                        "disable_authentication": {
+                            "description": "Authentication is required by default for RTMP and RTSP push connections from a video source to the transcoder. Specify <strong>true</strong> to disable authentication with the video source.",
+                            "example": false,
+                            "type": "boolean"
+                        },
+                        "idle_timeout": {
+                            "description": "The amount of idle time, in seconds, before the transcoder automatically shuts down. Valid values are the integers <strong>0</strong> (never shuts down) to <strong>172800</strong> (48 hours). The default is <strong>1200</strong> (20 minutes).",
+                            "example": 1200,
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "low_latency": {
+                            "description": "If <strong>true</strong>, turns off the sort packet buffer and speeds the time it takes to decode and deliver video data to the player. The default is <strong>false</strong>.",
+                            "example": false,
+                            "type": "boolean"
+                        },
+                        "name": {
+                            "description": "A descriptive name for the transcoder. Maximum 200 characters.",
+                            "example": "My PAYG Transcoder",
+                            "type": "string"
+                        },
+                        "password": {
+                            "description": "A password for authenticating an RTMP or RTSP push connection. Can contain only uppercase and lowercase letters; numbers; and the period (.), underscore (_), and hyphen (-) characters. No other special characters can be used.",
+                            "example": "82e0e971",
+                            "type": "string"
+                        },
+                        "play_maximum_connections": {
+                            "description": "The number of users who are allowed to connect directly to the transcoder.",
+                            "enum": [
+                                10,
+                                11,
+                                12,
+                                13,
+                                14,
+                                15,
+                                16,
+                                17,
+                                18,
+                                19,
+                                20,
+                                21,
+                                22,
+                                23,
+                                24,
+                                25,
+                                26,
+                                27,
+                                28,
+                                29,
+                                30,
+                                31,
+                                32,
+                                33,
+                                34,
+                                35,
+                                36,
+                                37,
+                                38,
+                                39,
+                                40,
+                                41,
+                                42,
+                                43,
+                                44,
+                                45,
+                                46,
+                                47,
+                                48,
+                                49,
+                                50,
+                                51,
+                                52,
+                                53,
+                                54,
+                                55,
+                                56,
+                                57,
+                                58,
+                                59,
+                                60,
+                                61,
+                                62,
+                                63,
+                                64,
+                                65,
+                                66,
+                                67,
+                                68,
+                                69,
+                                70,
+                                71,
+                                72,
+                                73,
+                                74,
+                                75,
+                                76,
+                                77,
+                                78,
+                                79,
+                                80,
+                                81,
+                                82,
+                                83,
+                                84,
+                                85,
+                                86,
+                                87,
+                                88,
+                                89,
+                                90,
+                                91,
+                                92,
+                                93,
+                                94,
+                                95,
+                                96,
+                                97,
+                                98,
+                                99,
+                                100
+                            ],
+                            "example": 20,
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "protocol": {
+                            "description": "The transport protocol for the source video. The default is <strong>rtmp</strong>.",
+                            "enum": [
+                                "rtmp",
+                                "rtsp"
+                            ],
+                            "example": "rtmp",
+                            "type": "string"
+                        },
+                        "recording": {
+                            "description": "If <strong>true</strong>, creates a recording of the transcoded output. The default is <strong>false</strong>.",
+                            "example": true,
+                            "type": "boolean"
+                        },
+                        "source_url": {
+                            "description": "For the <em>delivery_method</em> <strong>pull</strong>. Enter the source's web address without the preceding protocol or the trailing slash (/).",
+                            "example": "cp12345.live.edgefcs.net/live/redcarpet@123456",
+                            "type": "string"
+                        },
+                        "stream_extension": {
+                            "description": "For the <em>delivery_method</em> <strong>push</strong>. Some encoders append an extension to their stream names. If the device you're using does this, enter the extension.",
+                            "example": ".sdp",
+                            "type": "string"
+                        },
+                        "stream_smoother": {
+                            "description": "A dynamic buffer that helps stabilize streams in rough network conditions, but adds latency. Specify <strong>true</strong> to enable stream smoothing. The default is <strong>false</strong>.",
+                            "example": false,
+                            "type": "boolean"
+                        },
+                        "stream_source_id": {
+                            "description": "For the <em>delivery_method</em> <strong>cdn</strong>. The alphanumeric string that identifies the stream source that you want to use to deliver the stream to the transcoder.",
+                            "example": "rxHQQpWw",
+                            "type": "string"
+                        },
+                        "suppress_stream_target_start": {
+                            "description": "If <strong>true</strong>, disables stream targets when the transcoder starts. If <strong>false</strong> (the default), the targets start when the transcoder starts.",
+                            "example": false,
+                            "type": "boolean"
+                        },
+                        "transcoder_type": {
+                            "description": "The type of transcoder, either <strong>transcoded</strong> for streams that are transcoded into adaptive bitrate renditions or <strong>passthrough</strong> for streams that aren't processed by the transcoder. The default is <strong>transcoded</strong>.",
+                            "enum": [
+                                "transcoded",
+                                "passthrough"
+                            ],
+                            "example": "transcoded",
+                            "type": "string"
+                        },
+                        "username": {
+                            "description": "A username for authenticating an RTMP or RTSP push connection. Can contain only uppercase and lowercase letters; numbers; and the period (.), underscore (_), and hyphen (-) characters. No other special characters can be used.",
+                            "example": "client2",
+                            "type": "string"
+                        },
+                        "video_fallback": {
+                            "description": "If <strong>true</strong>, black video plays if the video source disconnects from the transcoder. If <strong>false</strong> (the default), a stream-not-available message appears. Works only with stream targets whose <em>provider</em> is <strong>akamai_cupertino</strong>.",
+                            "example": false,
+                            "type": "boolean"
+                        },
+                        "watermark": {
+                            "description": "Embeds an image into the transcoded stream for copyright protection. Specify <strong>true</strong> to embed a watermark image.",
+                            "example": true,
+                            "type": "boolean"
+                        },
+                        "watermark_height": {
+                            "description": "The height, in pixels, of the watermark image. If blank, Wowza Streaming Cloud uses the original image height.",
+                            "example": 80,
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "watermark_image": {
+                            "description": "A Base64-encoded string representation of a GIF, JPEG, or PNG image that is embedded in all bitrate renditions of the stream. Watermark image files must be 2.5 MB or smaller.",
+                            "example": "https://prod.s3.amazonaws.com/uploads/transcoder/watermark_image/12345/4baa13.jpg",
+                            "type": "string"
+                        },
+                        "watermark_opacity": {
+                            "description": "The opacity, or percentage of transparency, of the watermark. <strong>0</strong> is fully transparent; <strong>100</strong> is fully opaque.",
+                            "enum": [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4,
+                                5,
+                                6,
+                                7,
+                                8,
+                                9,
+                                10,
+                                11,
+                                12,
+                                13,
+                                14,
+                                15,
+                                16,
+                                17,
+                                18,
+                                19,
+                                20,
+                                21,
+                                22,
+                                23,
+                                24,
+                                25,
+                                26,
+                                27,
+                                28,
+                                29,
+                                30,
+                                31,
+                                32,
+                                33,
+                                34,
+                                35,
+                                36,
+                                37,
+                                38,
+                                39,
+                                40,
+                                41,
+                                42,
+                                43,
+                                44,
+                                45,
+                                46,
+                                47,
+                                48,
+                                49,
+                                50,
+                                51,
+                                52,
+                                53,
+                                54,
+                                55,
+                                56,
+                                57,
+                                58,
+                                59,
+                                60,
+                                61,
+                                62,
+                                63,
+                                64,
+                                65,
+                                66,
+                                67,
+                                68,
+                                69,
+                                70,
+                                71,
+                                72,
+                                73,
+                                74,
+                                75,
+                                76,
+                                77,
+                                78,
+                                79,
+                                80,
+                                81,
+                                82,
+                                83,
+                                84,
+                                85,
+                                86,
+                                87,
+                                88,
+                                89,
+                                90,
+                                91,
+                                92,
+                                93,
+                                94,
+                                95,
+                                96,
+                                97,
+                                98,
+                                99,
+                                100
+                            ],
+                            "example": 75,
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "watermark_position": {
+                            "description": "The corner of the video frame in which you want the watermark to appear. The default is <strong>top-left</strong>.",
+                            "enum": [
+                                "top-left",
+                                "top-right",
+                                "bottom-left",
+                                "bottom-right"
+                            ],
+                            "example": "bottom-left",
+                            "type": "string"
+                        },
+                        "watermark_width": {
+                            "description": "The width, in pixels, of the watermark image. If blank, Wowza Streaming Cloud uses the original image width.",
+                            "example": 100,
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    },
+                    "required": [
+                        "name",
+                        "transcoder_type",
+                        "billing_mode",
+                        "broadcast_location",
+                        "protocol",
+                        "delivery_method"
+                    ],
+                    "title": "transcoder",
+                    "type": "object"
+                }
+            },
+            "required": [
+                "transcoder"
+            ],
+            "type": "object"
+        }
+    }
+}
